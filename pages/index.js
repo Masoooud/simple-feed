@@ -1,65 +1,86 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { ButtonBase, Card, Container, Grid, Paper } from '@material-ui/core';
+import Link from 'next/link';
+import styles from '@common/styles/Home.module.scss';
+import Api from '@helpers/service';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import MainLayout from '@components/layout/Main';
+import { Fragment } from 'react';
+export default function Home({ news }) {
+  const [articles, setArticles] = useState(news);
 
-export default function Home() {
+  const [page, setPage] = useState(1);
+
+  // const getNews = async () => {
+  //   const res = await Api.get('/everything', {
+  //     q: 'Bitcoin',
+  //     apikey: 'd06c5b99868a4082b819b789ccd8dbe9',
+  //     pageSize: page * 10,
+  //   });
+  //   setArticles(res.data.articles);
+  // };
+
+  // useEffect(() => {
+  //   getNews();
+  // }, []);
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <MainLayout>
+      <Grid container spacing={3} alignItems="flex-start">
+        {articles?.map((article, index) => {
+          return (
+            <Grid item xs md={4} style={{ display: 'flex' }} key={`${article.title}-${index}`}>
+              <Card
+                className={styles.card}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  flexDirection: 'column',
+                }}>
+                <Link href={`/news/${article.title}`}>
+                  <ButtonBase className={styles.imageContainer}>
+                    <img src={article.urlToImage} className={styles.image} />
+                  </ButtonBase>
+                </Link>
+                <Link href={`/news/${article.title}`}>
+                  <h3>
+                    <a href={`/news/${article.title}`}>
+                      {article.title.length > 45
+                        ? article.title.slice(0, 42) + '...'
+                        : article.title}
+                    </a>
+                  </h3>
+                </Link>
+                <p>{article.source.name}</p>
+                <small>{moment(article.publishedAt).format('YYYY-MM-DD hh:mm')}</small>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </MainLayout>
+  );
+}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+export async function getStaticProps(context) {
+  const res = await Api.get('/everything', {
+    q: 'Bitcoin',
+    apikey: 'd06c5b99868a4082b819b789ccd8dbe9',
+    pageSize: 10,
+  });
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+  const data = res.data;
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+  return {
+    props: { news: data.articles }, // will be passed to the page component as props
+  };
 }

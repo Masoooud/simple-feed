@@ -1,0 +1,87 @@
+{
+    "env": {
+      "development": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "styled-jsx": {
+                "plugins": [
+                  "styled-jsx-plugin-sass"
+                ]
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "module-resolver",
+            {          
+                "root": ["./"],
+                "alias": {
+                  "@common": "./src/common",
+                  "@components": "./src/components",
+                  "@helpers": "./src/helpers",
+                  "@services": "./src/services",
+                }
+              }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "styled-jsx": {
+                "plugins": [
+                  "styled-jsx-plugin-sass"
+                ]
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "module-resolver",
+            {
+                "root": ["./"],
+                "alias": {
+                  "@common": "./src/common",
+                  "@components": "./src/components",
+                  "@helpers": "./src/helpers",
+                  "@services": "./src/services",
+                }
+              }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "module-resolver",
+            {
+                "root": ["./"],
+                "alias": {
+                  "@common": "./src/common",
+                  "@components": "./src/components",
+                  "@helpers": "./src/helpers",
+                  "@services": "./src/services",
+                }
+              }
+          ]
+        ]
+      }
+    }
+  }
+  
