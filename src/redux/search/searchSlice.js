@@ -21,7 +21,7 @@ export const searchSlice = createSlice({
 
 export const { setText, setPage, resetSearch } = searchSlice.actions;
 
-export const selectText = (state) => state.search.searchText;
+export const selectText = (state) => state.search.text;
 export const selectPage = (state) => state.search.page;
 
 export default searchSlice.reducer;

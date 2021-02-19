@@ -1,19 +1,40 @@
-import MainLayout from '../../src/components/layout/Main';
+import MainLayout from '@components/layout/Main';
 import { useRouter } from 'next/router';
-import { selectArticle } from '../../src/redux/article/articleSlice';
-
+import { selectArticle } from '@redux/article/articleSlice';
+import { useSelector } from 'react-redux';
+import styles from '@common/styles/Article.module.scss';
+import { ButtonBase, Card, Grid, Link } from '@material-ui/core';
+import moment from 'moment';
 export default function Article() {
   const article = useSelector(selectArticle);
   console.log({ article });
+
   const router = useRouter();
-  const { title, articleURL } = router.query;
-  console.log({ articleURL });
+  const { title } = router.query;
+
+  const content = article?.content?.split('…')[0];
+  console.log({ content });
+
   return (
     <MainLayout title={title}>
       <div>
-        <h1>{title}</h1>
-        {articleURL ? (
-          <iframe src={articleURL} sandbox="" style={{ width: '100%', height: '60vh' }} />
+        {article ? (
+          <Grid container style={{ display: 'flex' }} direction="column">
+            <div className={styles.cardDetail}>
+              <h1>{article.title}</h1>
+              <p>{article.author}</p>
+              <small>{article.source.name}</small>
+              <p>{moment(article.publishedAt).format('DD/MM/YYYY hh:mm')}</p>
+              <img src={article.urlToImage} className={styles.image} />
+              <p>{article.description}</p>
+              <p>
+                {content}
+                <a href={article.url} target="_blank">
+                  <span>[Read More]</span>
+                </a>
+              </p>
+            </div>
+          </Grid>
         ) : (
           <div
             style={{

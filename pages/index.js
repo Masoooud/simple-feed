@@ -39,21 +39,22 @@ export default function Home({ news }) {
       q: searchText,
       apikey: 'd06c5b99868a4082b819b789ccd8dbe9',
       pageSize: 10,
-      page: page,
+      page: pageNumber,
     });
+    router.push(`/?q=${searchText}&page=${pageNumber}`, undefined, { shallow: true });
     setArticles(res.data.articles);
   };
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   router.push(`/?page=${pageNumber}`, undefined, { shallow: true });
-  //   getNews();
-  // }, [pageNumber]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    router.push(`/?q=${text}&page=${pageNumber}`, undefined, { shallow: true });
+    getNews();
+  }, [pageNumber]);
 
   const handlePageChange = (number) => {
-    const newNumnber = pageNumber + number;
-    setPageNumber(newNumnber);
-    dispatch(setPage(newNumnber));
+    const newNumber = pageNumber + number;
+    setPageNumber(newNumber);
+    dispatch(setPage(newNumber));
   };
 
   const handleSearchTextChange = (text) => {
@@ -61,15 +62,19 @@ export default function Home({ news }) {
     dispatch(setText(text));
   };
 
+  const handleSearchClick = () => {
+    getNews();
+  };
+
   const pageButtons = () => {
     if (articles.length > 0) {
       return (
         <div className="pageArrowsContainer">
           <Grid container justify="space-between">
-            <Button disabled={page === 1 ? true : false} onClick={() => handlePageChange(page - 1)}>
+            <Button disabled={pageNumber === 1 ? true : false} onClick={() => handlePageChange(-1)}>
               Prev Page
             </Button>
-            <Button onClick={() => handlePageChange(page + 1)}>Next Page</Button>
+            <Button onClick={() => handlePageChange(1)}>Next Page</Button>
           </Grid>
         </div>
       );
@@ -99,7 +104,7 @@ export default function Home({ news }) {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={() => handlePageChange(page + 1)}
+          onClick={handleSearchClick}
           className={styles.searchButton}>
           SEARCH
         </Button>
@@ -135,7 +140,7 @@ export default function Home({ news }) {
                   <ButtonBase
                     className={styles.imageContainer}
                     onClick={() => handleArticleClick(article)}>
-                    <img src={article.urlToImage} className={styles.image} />
+                    <img src={article.urlToImage} className={styles.image} alt={article.title} />
                   </ButtonBase>
                 </Link>
                 <div className={styles.cardDetail}>

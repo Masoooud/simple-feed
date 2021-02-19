@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
 html,
 body {
     padding: 0;
@@ -16,29 +17,32 @@ a {
 
 .header {
     width: 100%;
-    height: 20vh;
+    height: 10vh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background: rgb(5, 133, 238);
+    background: #C70000;
     margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
     h1 {
-        font-size: 3rem;
         color: aliceblue;
         margin: 20px;
     }
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
+    // position: fixed;
+    // bottom: 0;
     width: 100%;
     height: 5vh;
+    min-height: 65px;
     border-top: 1px solid #eaeaea;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    background-color: #232327;
+    color: #eaeaea;
+    padding: 0 10px;
     img {
         margin-left: 0.5rem;
     }
@@ -46,6 +50,12 @@ a {
         display: flex;
         justify-content: center;
         align-items: center;
+         :first-of-type {
+            margin-left: 10px;
+        }
+    }
+    div {
+        margin-Left: 20px;
     }
 }
 
@@ -54,6 +64,10 @@ a {
     padding: 0;
     display: flex;
     flex-direction: column;
+}
+
+.root {
+    min-height: 70vh;
 }
 
 .main {

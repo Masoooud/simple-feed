@@ -1,6 +1,8 @@
 import Head from 'next/head';
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import Header from '../Header';
+import LinkedIn from '@common/icons/linkedin';
+import Github from '@common/icons/github';
 
 function MainLayout({ title, children }) {
   return (
@@ -14,11 +16,19 @@ function MainLayout({ title, children }) {
         {children}
       </Container>
       <footer className={'footer'}>
+        <small>Design and Developed by Masoud Moharrami</small>
         <a
           href="https://www.linkedin.com/in/masoud-moharrami-55a249146/"
           target="_blank"
           rel="noopener noreferrer">
-          Developed by Masoud Moharrami
+          <span>
+            <LinkedIn width="24" height="24" fill="#0070f3" />
+          </span>
+        </a>
+        <a href="https://github.com/Masoooud" target="_blank" rel="noopener noreferrer">
+          <span>
+            <Github width="24" height="24" fill="#C288FF" />
+          </span>
         </a>
       </footer>
     </div>
