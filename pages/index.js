@@ -30,7 +30,7 @@ export default function Home({ news }) {
   const text = useSelector(selectText);
   const page = useSelector(selectPage);
 
-  const [articles, setArticles] = useState(news);
+  const [articles, setArticles] = useState(news ?? []);
   const [searchText, setSearchText] = useState(text);
   const [pageNumber, setPageNumber] = useState(page);
 
