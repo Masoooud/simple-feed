@@ -1,4 +1,4 @@
-Simple Feed is a react application with using Next.js and Material UI. 
+Simple Feed is a react application with using Next.js and Material UI and NewsApi[https://newsapi.org/]. 
 
 ## Getting Started
 
