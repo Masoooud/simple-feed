@@ -23,6 +23,7 @@
                   "@components": "./src/components",
                   "@helpers": "./src/helpers",
                   "@services": "./src/services",
+                  "@redux": "./src/redux"
                 }
               }
           ]
@@ -51,6 +52,7 @@
                   "@components": "./src/components",
                   "@helpers": "./src/helpers",
                   "@services": "./src/services",
+                  "@redux": "./src/redux"
                 }
               }
           ]
@@ -77,6 +79,7 @@
                   "@components": "./src/components",
                   "@helpers": "./src/helpers",
                   "@services": "./src/services",
+                  "@redux": "./src/redux"
                 }
               }
           ]

@@ -28,7 +28,6 @@ class Api {
       Authorization: `${config.tokenType} ${this._token || cookie.get('Token') || ''}`,
       ...headersOption,
     };
-    console.log({ headers });
 
     return headers;
   };
